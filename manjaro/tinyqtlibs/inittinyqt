@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+if [ "$1" == "" ] ; then
+	echo "No argument passed!"
+	exit 1
+elif [ "$1" == "--help" ] && [ "$1" == "-h" ] ; then
+	echo "inittinyqt [Program to execute with tinyqt libs]"
+	exit 0
+fi
+
+
+if [ -e "/usr/lib/libQtCore.so.4" ] && [ -e "/usr/lib/libQtGui.so.4" ] ; then
+	$1
+else
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/tinyqtlibs/" 
+	$1
+fi
+

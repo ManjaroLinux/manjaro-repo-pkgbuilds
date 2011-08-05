@@ -1,0 +1,26 @@
+pkgname=pnmixer
+pkgver=0.3
+pkgrel=2
+pkgdesc="PNMixer is a GTK volume mixer applet that runs in the system tray. \
+It is lightweight, works with both pulseaudio and alsa, supports mouse wheel \
+volume adjustment, works with tint2, and can run outside of gnome. \
+PNMixer provides many configuration options including which icon theme \
+to use for display, middle click actions and more.\
+PNMixer is a fork of OBMixer.
+"
+arch=('i686' 'x86_64')
+license=('GPL')
+url="https://github.com/nicklan/pnmixer"
+groups=('pnmixer')
+depends=('gtk2' 'alsa-lib')
+
+source=(https://github.com/downloads/nicklan/pnmixer/pnmixer-${pkgver}.tar.gz)
+md5sums=('94cfcbb0dc9a1cdb061f195ed26ca75d')
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  ./autogen.sh || return 1
+  ./configure --prefix=/usr || return 1
+  make || return 1
+  make DESTDIR="$pkgdir" install || return 1
+}

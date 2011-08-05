@@ -1,0 +1,51 @@
+# manjaro-installer
+# Maintainer: ying <Squared Solutions>
+# Contributor: ying <Squared Solutions>
+
+pkgname=manjaro-settings
+pkgver="$(date +%Y%m%d)"
+pkgrel=1
+pkgdesc="Manjaro's settings manager"
+arch=("i686" "x86_64")
+url="http://manjarolinux.org/"
+license=('GPL2')
+depends=('mhwd' 'tinyqtlibs' 'coreutils')
+makedepends=('qt' 'git')
+optdepends=('qt')
+
+_gitroot=git://github.com/ManjaroLinux/${pkgname}
+
+
+build() {
+    cd ${srcdir}
+    msg "Connecting to Manjaro Linux GIT server..."
+
+    if [ -d ${srcdir}/${pkgname} ]; then
+      cd ${pkgname} && git pull origin
+      msg "The local files are updated."
+    else
+      git clone $_gitroot
+    fi
+
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
+
+    cd  ${srcdir}/${pkgname}/src
+
+    # build
+    qmake || return 1
+    make || return 1
+
+    # build translation files
+    cd  ${srcdir}/${pkgname}/src/translation
+    make release
+
+    # Copy files
+    mkdir -p ${pkgdir}/usr/bin
+    mkdir -p ${pkgdir}/usr/share/applications
+    mkdir -p ${pkgdir}/usr/share/manjaro-settings
+    cp -fr ${srcdir}/${pkgname}/run/manjaro-settings ${pkgdir}/usr/bin/manjaro-settings
+    cp -fr ${srcdir}/${pkgname}/run/manjaro-settings.desktop ${pkgdir}/usr/share/applications/manjaro-settings.desktop
+    cp -fr ${srcdir}/${pkgname}/run/* ${pkgdir}/usr/share/manjaro-settings/
+    cp -fr ${srcdir}/${pkgname}/src/manjaro-settings ${pkgdir}/usr/share/manjaro-settings/manjaro-settings
+}
