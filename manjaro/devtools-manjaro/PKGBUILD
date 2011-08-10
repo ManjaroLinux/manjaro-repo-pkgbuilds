@@ -1,0 +1,24 @@
+# $Id: PKGBUILD 124271 2011-05-18 16:31:21Z pierre $
+# Maintainer: Pierre Schmitz <pierre@archlinux.de>
+
+pkgname=devtools-manjaro
+pkgver=0.9.23
+pkgrel=1
+pkgdesc='Tools for Arch Linux package maintainers. Modif to generate french locale'
+arch=('any')
+license=('GPL')
+url='http://projects.archlinux.org/devtools.git/'
+depends=('namcap' 'openssh' 'subversion' 'rsync')
+source=("ftp://ftp.archlinux.org/other/devtools/devtools-${pkgver}.tar.gz"
+	"mkarchroot_modif")
+provides=('devtools')
+conflicts=('devtools')
+replaces=('devtools')
+
+package() {
+	cp mkarchroot_modif ${srcdir}/devtools-${pkgver}/mkarchroot
+	cd ${srcdir}/devtools-${pkgver}
+	make DESTDIR=${pkgdir} install
+}
+md5sums=('7f7e43464b50942ac3655aaad5167f34'
+         '10ca6027410c3f6f3a7585b70550e43b')
