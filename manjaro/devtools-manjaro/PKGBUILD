@@ -11,9 +11,8 @@ url='http://projects.archlinux.org/devtools.git/'
 depends=('namcap' 'openssh' 'subversion' 'rsync')
 source=("ftp://ftp.archlinux.org/other/devtools/devtools-${pkgver}.tar.gz"
 	"mkarchroot_modif")
-provides=('devtools')
+provides=('devtools=0.9.23')
 conflicts=('devtools')
-replaces=('devtools')
 
 package() {
 	cp mkarchroot_modif ${srcdir}/devtools-${pkgver}/mkarchroot
