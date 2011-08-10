@@ -9,12 +9,12 @@ post_install() {
 		exit 0
 	fi
 
-	mkinitcpio -p kernel26
+	mkinitcpio -p linux
 }
 
 
 post_upgrade() {
-	mkinitcpio -p kernel26
+	mkinitcpio -p linux
 }
 
 
@@ -22,5 +22,5 @@ post_remove() {
 	sed -i '/#/!s/ mhwd-fb//g' /etc/mkinitcpio.conf
 	sed -i '/#/!s/mhwd-fb//g' /etc/mkinitcpio.conf
 
-	mkinitcpio -p kernel26
+	mkinitcpio -p linux
 }
