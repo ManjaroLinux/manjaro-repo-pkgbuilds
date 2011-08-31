@@ -1,0 +1,111 @@
+diff -Nur a/util/grub.d/00_header.in b/util/grub.d/00_header.in
+--- a/util/grub.d/00_header.in	2011-04-06 13:14:27.000000000 +0200
++++ b/util/grub.d/00_header.in	2011-08-30 10:41:52.555709561 +0200
+@@ -100,6 +100,14 @@
+ 
+ EOF
+ 
++if [ x$GRUB_COLOR_NORMAL != x ] && [ x$GRUB_COLOR_HIGHLIGHT != x ] ; then
++    cat << EOF
++set menu_color_normal=$GRUB_COLOR_NORMAL
++set menu_color_highlight=$GRUB_COLOR_HIGHLIGHT
++
++EOF
++fi
++
+ serial=0;
+ gfxterm=0;
+ for x in ${GRUB_TERMINAL_INPUT} ${GRUB_TERMINAL_OUTPUT}; do
+diff -Nur a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+--- a/util/grub.d/10_linux.in	2011-05-14 22:36:49.000000000 +0200
++++ b/util/grub.d/10_linux.in	2011-08-30 16:34:10.121591666 +0200
+@@ -31,8 +31,8 @@
+ if [ "x${GRUB_DISTRIBUTOR}" = "x" ] ; then
+   OS=GNU/Linux
+ else
+-  OS="${GRUB_DISTRIBUTOR} GNU/Linux"
+-  CLASS="--class $(echo ${GRUB_DISTRIBUTOR} | tr 'A-Z' 'a-z' | cut -d' ' -f1) ${CLASS}"
++  OS="${GRUB_DISTRIBUTOR}"
++  CLASS="--class $(echo ${GRUB_DISTRIBUTOR} | tr 'A-Z' 'a-z' | tr -d ' ') ${CLASS}"
+ fi
+ 
+ # loop-AES arranges things so that /dev/loop/X can be our root device, but
+@@ -65,10 +65,12 @@
+   version="$2"
+   recovery="$3"
+   args="$4"
+-  if ${recovery} ; then
+-    title="$(gettext_quoted "%s, with Linux %s (recovery mode)")"
++  if [ -n "$5" ] ; then
++    title="$(gettext_quoted "%s (%s)") $5"
++  elif ${recovery} ; then
++    title="$(gettext_quoted "%s (%s) (recovery mode)")"
+   else
+-    title="$(gettext_quoted "%s, with Linux %s")"
++    title="$(gettext_quoted "%s (%s)")"
+   fi
+   printf "menuentry '${title}' ${CLASS} {\n" "${os}" "${version}"
+   if ! ${recovery} ; then
+@@ -113,15 +115,11 @@
+     fi
+     printf '%s\n' "${prepare_boot_cache}"
+   fi
+-  message="$(gettext_printf "Loading Linux %s ..." ${version})"
+   cat << EOF
+-	echo	'$message'
+ 	linux	${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
+ EOF
+   if test -n "${initrd}" ; then
+-    message="$(gettext_printf "Loading initial ramdisk ...")"
+     cat << EOF
+-	echo	'$message'
+ 	initrd	${rel_dirname}/${initrd}
+ EOF
+   fi
+@@ -132,7 +130,7 @@
+ 
+ case x`uname -m` in
+     xi?86 | xx86_64)
+-	list=`for i in /boot/vmlinuz-* /vmlinuz-* /boot/kernel-* ; do
++	list=`for i in /boot/vmlinuz-* /vmlinuz-* /boot/kernel-* /boot/vmlinuz26-* ; do
+                   if grub_file_is_not_garbage "$i" ; then echo -n "$i " ; fi
+               done` ;;
+     *) 
+@@ -160,7 +158,8 @@
+ 	   "initrd.img-${alt_version}" "initrd-${alt_version}.img" \
+ 	   "initrd-${alt_version}" "initramfs-${alt_version}.img" \
+ 	   "initramfs-genkernel-${version}" \
+-	   "initramfs-genkernel-${alt_version}"; do
++	   "initramfs-genkernel-${alt_version}" \
++	   "${basename/vmlinuz/initramfs}.img" "${basename/vmlinuz/kernel}.img"; do
+     if test -e "${dirname}/${i}" ; then
+       initrd="$i"
+       break
+@@ -190,6 +189,15 @@
+ 
+   linux_entry "${OS}" "${version}" false \
+       "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
++  for i in "initramfs-${version}-fallback.img" \
++	   "${basename/vmlinuz/initramfs}-fallback.img" "${basename/vmlinuz/kernel}-fallback.img"; do
++    if test -e "${dirname}/${i}"; then
++      initrd="$i"
++      linux_entry "${OS}" "${version}" true \
++	  "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}" Fallback
++      break
++    fi
++  done
+   if [ "x${GRUB_DISABLE_RECOVERY}" != "xtrue" ]; then
+     linux_entry "${OS}" "${version}" true \
+ 	"single ${GRUB_CMDLINE_LINUX}"
+diff -Nur a/util/grub-mkconfig.in b/util/grub-mkconfig.in
+--- a/util/grub-mkconfig.in	2011-04-06 17:45:53.000000000 +0200
++++ b/util/grub-mkconfig.in	2011-08-30 10:41:52.559042876 +0200
+@@ -252,6 +252,8 @@
+   GRUB_THEME \
+   GRUB_GFXPAYLOAD_LINUX \
+   GRUB_DISABLE_OS_PROBER \
++  GRUB_COLOR_NORMAL \
++  GRUB_COLOR_HIGHLIGHT \
+   GRUB_INIT_TUNE \
+   GRUB_SAVEDEFAULT \
+   GRUB_BADRAM
