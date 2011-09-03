@@ -28,5 +28,7 @@ cp -fr ${srcdir}/../inittinyqt ${pkgdir}/usr/bin/inittinyqt
 }
 
 
-md5sums=('be6efa0441c2bd2235a05adb35976e66'
+
+
+md5sums=('9e856d398bad6b41d35043bdd223a7ee'
          '730bbd270b6d15af3392301022fdfe36')
