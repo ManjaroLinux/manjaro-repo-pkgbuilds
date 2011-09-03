@@ -42,7 +42,7 @@ insmod ext2
 set root='(hd0,msdos3)'
 search --no-floppy --fs-uuid --set=root 43ac266a-8bd7-4bab-ba5f-7e0ed5788fdb
 if loadfont /usr/share/grub/unicode.pf2 ; then
-  set gfxmode=auto
+  set gfxmode=800x600
   load_video
   insmod gfxterm
   insmod part_msdos
