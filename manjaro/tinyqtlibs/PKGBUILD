@@ -4,8 +4,8 @@
 
 pkgname=tinyqtlibs
 ARCH=$(uname -m)
-pkgver=4.7.3
-pkgrel=3
+pkgver=4.7.4
+pkgrel=1
 pkgdesc="Qt libs for manjaro applications."
 arch=("i686" "x86_64")
 url='http://qt.nokia.com/'
@@ -26,9 +26,3 @@ cp -fr ${srcdir}/usr/lib/libQtCore.so.${pkgver} ${pkgdir}/usr/lib/tinyqtlibs/lib
 cp -fr ${srcdir}/usr/lib/libQtGui.so.${pkgver} ${pkgdir}/usr/lib/tinyqtlibs/libQtGui.so.4
 cp -fr ${srcdir}/../inittinyqt ${pkgdir}/usr/bin/inittinyqt
 }
-
-
-
-
-md5sums=('9e856d398bad6b41d35043bdd223a7ee'
-         '730bbd270b6d15af3392301022fdfe36')
