@@ -43,10 +43,7 @@ package() {
 	for f in gshadow shadow crypttab; do
 		install -m600 ${srcdir}/${f} ${pkgdir}/etc/
 	done
-
-	# Creat the manjaro-release file	
-	echo "Manjaro Linux" > ${pkgdir}/etc/manjaro-release
-
+	touch ${pkgdir}/etc/arch-release
 	install -D -m644 ${srcdir}/modprobe.d.usb-load-ehci-first ${pkgdir}/etc/modprobe.d/usb-load-ehci-first.conf
 
 	# setup /var
