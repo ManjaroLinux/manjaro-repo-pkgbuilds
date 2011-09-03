@@ -34,6 +34,8 @@ package() {
 	sed -i 's|C_OTHER=.*|C_OTHER=\"\\033[1\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
 	sed -i 's|C_BUSY=.*|C_OTHER=\"\\033[0\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
 	sed -i 's|C_H2=.*|C_H2=\"\\033[1\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
+
+	sed -i "/#/!s|DAEMONS.*|DAEMONS=(hwclock syslog-ng acpid networkmanager netfs crond)|g" "${pkgdir}/etc/rc.conf"
 }
 md5sums=('1eb0cd1bbe10a7b05c473c285a36849e'
          '027576534885b8d5dded9be546057b12')

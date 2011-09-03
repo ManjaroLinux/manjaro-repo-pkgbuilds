@@ -21,13 +21,19 @@ optdepends=('bridge-utils: Network bridging support'
             'net-tools: legacy network support'
             'wireless_tools: Wireless networking')
 install=initscripts.install
-source=("ftp://ftp.archlinux.org/other/initscripts/${pkgname}-${pkgver}.tar.xz"
+source=("ftp://ftp.archlinux.org/other/initscripts/initscripts-${pkgver}.tar.xz"
         'wireless.conf.d')
 
 package() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${srcdir}/initscripts-${pkgver}
   make DESTDIR=${pkgdir} install
   install -D -m644 ${srcdir}/wireless.conf.d ${pkgdir}/etc/conf.d/wireless
+
+	sed -i 's|Arch Linux|Manjaro Linux|g' "${pkgdir}/etc/rc.sysinit"
+	sed -i 's|www.archlinux.org|www.manjarolinux.org|g' "${pkgdir}/etc/rc.sysinit"
+	sed -i 's|C_OTHER=.*|C_OTHER=\"\\033[1\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
+	sed -i 's|C_BUSY=.*|C_OTHER=\"\\033[0\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
+	sed -i 's|C_H2=.*|C_H2=\"\\033[1\;32\;40m\"|g' "${pkgdir}/etc/rc.d/functions"
 }
 md5sums=('1eb0cd1bbe10a7b05c473c285a36849e'
          '027576534885b8d5dded9be546057b12')
