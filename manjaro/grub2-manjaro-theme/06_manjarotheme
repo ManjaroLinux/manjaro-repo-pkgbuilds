@@ -1,8 +1,0 @@
-#!/bin/bash -e
-
-cat << EOF
-set menu_color_normal=light-green/black
-set menu_color_highlight=light-green/green
-
-set gfxmode=800x600
-EOF
