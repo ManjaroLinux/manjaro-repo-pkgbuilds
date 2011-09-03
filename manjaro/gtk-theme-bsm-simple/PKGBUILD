@@ -1,7 +1,7 @@
 # Maintainer: H.Gökhan Sarı <th0th@returnfalse.net>
 pkgname=gtk-theme-bsm-simple
 pkgver=1.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A small, light and smooth theme for GTK based desktops."
 arch=(any)
 url="http://gnome-look.org/content/show.php/BSM+Simple?content=121685"
@@ -30,4 +30,4 @@ package() {
 
 
 md5sums=('26ba7fd532b8811e77a041ce8bacf79f'
-         '89fe8d8f0f089e9393b1297ce6eee44e')
+         '96ef4d5f6e2e86289f79757d215ae4af')
