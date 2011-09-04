@@ -7,7 +7,7 @@ pkgname=initscripts-manjaro
 provides=('initscripts=2011.07.3')
 conflicts=('initscripts')
 pkgver=2011.07.3
-pkgrel=2
+pkgrel=1
 pkgdesc="System initialization/bootup scripts"
 arch=('i686' 'x86_64')
 url="http://www.archlinux.org"
