@@ -18,7 +18,6 @@ optdepends=('unrar: the RAR uncompression program'
             'xz: managing LZMA and XZ compressed files'
             'arj: ARJ archiver'
             'unace: extraction tool for the proprietary ace archive format')
-groups=('gnome-extra')
 options=('!libtool' '!emptydirs')
 install=file-roller.install
 url="http://www.gnome.org"
