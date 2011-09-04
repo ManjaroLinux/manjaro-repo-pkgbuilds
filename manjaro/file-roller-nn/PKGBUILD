@@ -6,7 +6,6 @@ pkgrel=1
 provides=('file-roller=3.0.2')
 conflicts=('file-roller' 'nautilus')
 pkgdesc="Archive manipulator for GNOME without nautilus dependency. (no nautilus)"
-pkgdesc="Archive manipulator for GNOME"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('desktop-file-utils' 'gtk3' 'hicolor-icon-theme' 'dconf')
