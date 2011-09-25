@@ -1,0 +1,53 @@
+# manjaro-installer
+# Maintainer: ying <Squared Solutions>
+# Contributor: ying <Squared Solutions>
+
+pkgname=manjaro-installer
+pkgver="$(date +%Y%m%d)"
+pkgrel=1
+pkgdesc="Manjaro's installer"
+arch=("i686" "x86_64")
+url="http://manjarolinux.org/"
+license=('GPL2')
+depends=('mhwd' 'gcc-libs' 'parted' 'tinyqtlibs' 'coreutils' 'gawk' 'e2fsprogs' 'jfsutils' 'reiserfsprogs' 'xfsprogs' 'btrfs-progs-unstable')
+makedepends=('qt' 'git')
+optdepends=('qt')
+
+_gitroot=git://github.com/ManjaroLinux/${pkgname}
+
+
+
+build() {
+    cd ${srcdir}
+    msg "Connecting to Manjaro Linux GIT server..."
+
+    if [ -d ${srcdir}/${pkgname} ]; then
+      cd ${pkgname} && git pull origin
+      msg "The local files are updated."
+    else
+      git clone $_gitroot
+    fi
+
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
+
+    cd  ${srcdir}/${pkgname}/src
+
+    # build
+    qmake || return 1
+    make || return 1
+
+    # build translation files
+    cd  ${srcdir}/${pkgname}/src/translation
+    make release
+
+    # Copy files
+    mkdir -p ${pkgdir}/usr/bin
+    mkdir -p ${pkgdir}/usr/share/applications
+    mkdir -p ${pkgdir}/usr/share/manjaro-installer/translation
+    cp -fr ${srcdir}/${pkgname}/run/manjaro-installer ${pkgdir}/usr/bin/manjaro-installer
+    cp -fr ${srcdir}/${pkgname}/run/manjaro-installer.desktop ${pkgdir}/usr/share/applications/manjaro-installer.desktop
+    cp -fr ${srcdir}/${pkgname}/run/* ${pkgdir}/usr/share/manjaro-installer/
+    cp -fr ${srcdir}/${pkgname}/src/manjaro-installer ${pkgdir}/usr/share/manjaro-installer/manjaro-installer
+    cp -fr ${srcdir}/${pkgname}/src/translation/*.qm ${pkgdir}/usr/share/manjaro-installer/translation/
+}

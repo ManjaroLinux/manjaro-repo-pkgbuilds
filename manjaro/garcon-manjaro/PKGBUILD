@@ -1,0 +1,39 @@
+# $Id: PKGBUILD 127908 2011-06-19 16:23:50Z andyrtr $
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Xavier Devlamynck <magicrhesus@ouranos.be> 
+
+pkgname=garcon-manjaro
+pkgver=0.1.8
+pkgrel=1
+pkgdesc="implementation of the freedesktop.org menu specification. Correct a bug in /usr/share/desktop-directories/xfce-settings.directory"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="http://wiki.xf/usr/share/desktop-directories/xfce-settings.directoryce.org/dev/garcon"
+groups=('xfce4')
+depends=('glib2') # 'perl')
+makedepends=('pkgconfig' 'intltool' 'xfce4-dev-tools>=4.7.4')
+provides=('garcon=0.1.8')
+conflicts=('garcon-git' 'garcon')
+replaces=('libxfce4menu')
+options=('!libtool' '!makeflags')
+source=("http://archive.xfce.org/src/libs/garcon/0.1/garcon-${pkgver}.tar.bz2"
+	"xfce-settings.directory_modif")
+
+build() {
+  cd ${srcdir}/garcon-${pkgver}
+  ./configure --prefix=/usr \
+	--sysconfdir=/etc \
+	--libexecdir=/usr/lib \
+	--localstatedir=/var \
+	--disable-static \
+	--disable-debug
+  make
+}
+
+package() {
+  cp xfce-settings.directory_modif ${srcdir}/garcon-${pkgver}/data/xfce/xfce-settings.directory
+  cd ${srcdir}/garcon-${pkgver}
+  make DESTDIR=${pkgdir} install
+}
+md5sums=('18fbf523ed2865dfaccdfb40b4b20b05'
+         'f0638592c25ba76ac66b806168dc3d5b')

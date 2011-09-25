@@ -1,0 +1,29 @@
+infodir=usr/share/info
+filelist=(grub.info grub-dev.info)
+
+post_install() {
+  if [ -f /boot/grub/grub.cfg.pacsave ]; then
+    echo "Copying /boot/grub/grub.cfg.pacsave to /boot/grub/grub.cfg"
+    install -Dm644 /boot/grub/grub.cfg.pacsave /boot/grub/grub.cfg
+  else
+    grub-mkconfig -o /boot/grub/grub.cfg
+  fi
+
+  for file in ${filelist[@]}; do
+    install-info $infodir/$file.gz $infodir/dir 2> /dev/null
+  done
+}
+
+post_upgrade() {
+   grub-mkconfig -o /boot/grub/grub.cfg
+
+  for file in ${filelist[@]}; do
+    install-info $infodir/$file.gz $infodir/dir 2> /dev/null
+  done
+}
+
+pre_remove() {
+  for file in ${filelist[@]}; do
+    install-info --delete $infodir/$file $infodir/dir 2> /dev/null
+  done
+}

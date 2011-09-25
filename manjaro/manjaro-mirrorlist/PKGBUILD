@@ -1,0 +1,19 @@
+# Maintainer: ying
+
+pkgname=manjaro-mirrorlist
+pkgver="$(date +%Y%m%d)"
+pkgrel=1
+pkgdesc="Manjaro mirrors"
+arch=('any')
+url="http://www.manjarolinux.org"
+license=('GPL2')
+source=('manjaro-mirrorlist')
+
+package() {
+	mkdir -p ${pkgdir}/etc/pacman.d
+	install -Dm0644 ${srcdir}/manjaro-mirrorlist ${pkgdir}/etc/pacman.d/manjaro-mirrorlist
+}
+
+
+
+md5sums=('2fd50db44ba1ca432cd158b5c4e698f9')
