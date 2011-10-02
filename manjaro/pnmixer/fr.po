@@ -1,0 +1,160 @@
+# French translation for pnmixer.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the pnmixer package.
+# Matthieu Bresson <apoptose@talkr.im>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pnmixer master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-09 23:09+0200\n"
+"PO-Revision-Date: 2011-09-04 22:32+0100\n"
+"Last-Translator: Matthieu Bresson <apoptose@talkr.im>\n"
+"Language-Team: Français <gnome-fr@gnome.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/main.c:235
+msgid "Mute"
+msgstr "Muet"
+
+#: ../src/main.c:241
+msgid "Volume Control..."
+msgstr "Contrôle du volume..."
+
+#: ../src/main.c:295 ../src/prefs.c:585
+msgid "Mute/Unmute"
+msgstr "Muet actif/inactif"
+
+#: ../src/main.c:303 ../src/prefs.c:587
+msgid "Volume Control"
+msgstr "Contrôle du volume"
+
+#: ../src/main.c:311
+msgid "Preferences"
+msgstr "Paramètres"
+
+#: ../src/main.c:319
+msgid "About"
+msgstr "À propos"
+
+#: ../src/main.c:331
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../src/main.c:353
+msgid "About PNMixer"
+msgstr "À propos de PNMixer"
+
+#: ../src/main.c:372
+msgid ""
+"A mixer for the system tray.\n"
+"http://github.com/nicklan/pnmixer"
+msgstr ""
+"Un mixeur pour la zone de notification.\n"
+"http://github.com/nicklan/pnmixer"
+
+#: ../src/main.c:552
+msgid "- A mixer for the system tray."
+msgstr "- Un mixeur pour la zone de notification."
+
+#: ../src/support.c:89 ../src/support.c:111
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Fichier pixmap introuvable : %s"
+
+#: ../src/prefs.c:359
+msgid "PNMixer Preferences"
+msgstr "Paramètres de PNMixer"
+
+#: ../src/prefs.c:381
+msgid "Display Text Volume"
+msgstr "Afficher le volume sonore"
+
+#: ../src/prefs.c:391
+msgid "Volume Text Position: "
+msgstr "Position où est affiché le volume sonore :"
+
+#: ../src/prefs.c:399
+msgid "Top"
+msgstr "En haut"
+
+#: ../src/prefs.c:400
+msgid "Bottom"
+msgstr "En bas"
+
+#: ../src/prefs.c:401
+msgid "Left"
+msgstr "À gauche"
+
+#: ../src/prefs.c:402
+msgid "Right"
+msgstr "À droite"
+
+#: ../src/prefs.c:413
+msgid ""
+"Draw Volume Meter on Tray Icon\n"
+"(will cause slightly higher mem/cpu usage)"
+msgstr ""
+"Afficher une illustration du volume sonore sur l'icône de la zone de notification\n"
+"(prendra un peu plus de mémoire vive et utilisera un peu plus le processeur)"
+
+#: ../src/prefs.c:423
+msgid "Volume Meter Offset: "
+msgstr "Décalage du mini-graphique :"
+
+#: ../src/prefs.c:434
+msgid "<b>Display</b>"
+msgstr "<b>Affichage</b>"
+
+#: ../src/prefs.c:455
+msgid "Card:"
+msgstr "Carte :"
+
+#: ../src/prefs.c:469
+msgid "Channel:"
+msgstr "Canal :"
+
+#: ../src/prefs.c:486
+msgid "<b>Alsa Device</b>"
+msgstr "<b>Périphérique Alsa</b>"
+
+#: ../src/prefs.c:513
+msgid "<b>Volume Control Command</b>"
+msgstr "<b>Commande pour le contrôle du volume</b>"
+
+#: ../src/prefs.c:532
+msgid "PNMixer Icons"
+msgstr "Icônes PNMixer"
+
+#: ../src/prefs.c:535
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Thème d'icône</b>"
+
+#: ../src/prefs.c:556
+msgid "Mouse Scroll Step:"
+msgstr "Influence de la molette sur le volume :"
+
+#: ../src/prefs.c:564
+msgid "Middle Click Action:"
+msgstr "Action du clic du milieu :"
+
+#: ../src/prefs.c:586
+msgid "Show Preferences"
+msgstr "Montrer les paramètres"
+
+#: ../src/prefs.c:588
+msgid "Custom (set below)"
+msgstr "Autre (renseigner en-dessous)"
+
+#: ../src/prefs.c:592
+msgid "Custom Command:"
+msgstr "Commande personnalisée :"
+
+#: ../src/prefs.c:616
+msgid "<b>Mouse</b>"
+msgstr "<b>Souris</b>"
+
+
