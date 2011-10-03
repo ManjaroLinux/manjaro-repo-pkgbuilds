@@ -1,6 +1,8 @@
 pkgname=gtk-engine-unico
 pkgrel=2
 pkgver=1.0.1
+# Because version has changed to a lower one
+epoch=1
 pkgdesc="New GTK+ 3.0 theming engine by Andrea Cimitan"
 arch=('i686' 'x86_64')
 url="https://launchpad.net/unico"
