@@ -1,0 +1,55 @@
+# Maintainer: ying <roland@manjarolinux.org>
+
+
+pkgname=mhwd
+pkgver="$(date +%Y%m%d)"
+pkgrel=1
+pkgdesc="Manjaro Hardware Detection"
+arch=('i686' 'x86_64')
+url="http://www.manjarolinux.org"
+license=('GPL2')
+depends=('v86d' 'libmhwd' 'hwdetect')
+makedepends=('qt-static' 'upx' 'git')
+replaces=('xoco')
+install=mhwd.install
+
+options=(!strip)
+
+_gitroot=git://github.com/ManjaroLinux/${pkgname}
+
+
+
+build() {
+    cd ${srcdir}
+    msg "Connecting to Manjaro Linux GIT server..."
+
+    if [ -d ${srcdir}/${pkgname} ]; then
+      cd ${pkgname} && git pull origin
+      msg "The local files are updated."
+    else
+      git clone $_gitroot
+    fi
+
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
+}
+
+
+package() {
+	# Make mhwd application
+        cd ${srcdir}/${pkgname}/src/mhwd
+        qmake-static || return 1
+	make || return 1
+	upx --best mhwd || return 1
+
+	mkdir -p ${pkgdir}/usr/bin/
+	mkdir -p ${pkgdir}/usr/share/mhwd/
+	mkdir -p ${pkgdir}/lib/initcpio/
+	mkdir -p ${pkgdir}/etc/mhwd.d/
+
+        install -D ${srcdir}/${pkgname}/src/mhwd/mhwd ${pkgdir}/usr/bin/
+	chmod +x ${pkgdir}/usr/bin/mhwd
+        cp -fr ${srcdir}/${pkgname}/src/mhwd.d/* ${pkgdir}/etc/mhwd.d/
+        cp -fr ${srcdir}/${pkgname}/src/run/* ${pkgdir}/usr/share/mhwd/
+        cp -fr ${srcdir}/${pkgname}/src/initcpio/* ${pkgdir}/lib/initcpio/
+}
