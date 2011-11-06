@@ -7,15 +7,16 @@ pkgdesc="Firmware for the carl9170 WiFi driver"
 arch=('any')
 url="http://wireless.kernel.org/en/users/Drivers/carl9170"
 license=('GPL2')
-depends=()
+depends=('linux<3.1')
 makedepends=()
 options=()
 install=
-source=('carl9170-1.fw')
-md5sums=('9e33ac39dcd610aa1ad80bbf4f1abccf')
+source=("http://wireless.kernel.org/en/users/Drivers/carl9170/fw${pkgver}?action=AttachFile&do=get&target=carl9170-1.fw")
+
 
 build() {
-  mkdir -p $pkgdir/lib/firmware
-  cp $srcdir/* $pkgdir/lib/firmware  
+  mkdir -p "$pkgdir/lib/firmware"
+  install -D "${srcdir}/fw${pkgver}?action=AttachFile&do=get&target=carl9170-1.fw" "$pkgdir/lib/firmware/carl9170-1.fw";
 }
 
+md5sums=('9e33ac39dcd610aa1ad80bbf4f1abccf')
